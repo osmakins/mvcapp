@@ -1,0 +1,17 @@
+{
+    "name": "osmakins/mvcapp",
+    "description": "model-view-controller",
+    "type": "project",
+    "authors": [
+        {
+            "name": "M.O Akindayo",
+            "email": "matthewakinse@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    }
+}
