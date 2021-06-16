@@ -11,7 +11,9 @@
   use Middlewares\RequestHandler; // new major version uses PSR-17 (2.x)
   use Relay\Relay;
   use Zend\Diactoros\ServerRequestFactory; // zend now abandoned check laminas
+  use Zend\Diactoros\Response; // zend now abandoned check laminas
   use function DI\create;
+  use function DI\get;
   use function FastRoute\simpleDispatcher;
 
   // configure and build the container
@@ -20,6 +22,10 @@
   $containerBuilder->useAnnotations(false);
   $containerBuilder->addDefinitions([
     MainController::class => create(MainController::class)
+    ->constructor(get('Foo'), get('Response')),
+    'Foo' => 'bar', 'Response' => function(){
+      return new Response();
+    }, //dependency injection
   ]);
 
   $container = $containerBuilder->build();
@@ -29,7 +35,7 @@
   });
 
   $middlewareQueue[] = new FastRoute($routes);
-  $middlewareQueue[] = new RequestHandler();
+  $middlewareQueue[] = new RequestHandler($container);
 
   $requestHandler = new Relay($middlewareQueue);
 
