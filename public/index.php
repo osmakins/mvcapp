@@ -9,6 +9,7 @@
   use FastRoute\RouteCollector;
   use Middlewares\FastRoute; // new major version uses PSR-17 (2.x)
   use Middlewares\RequestHandler; // new major version uses PSR-17 (2.x)
+  use Narrowspark\HttpEmitter\SapiEmitter;
   use Relay\Relay;
   use Zend\Diactoros\ServerRequestFactory; // zend now abandoned check laminas
   use Zend\Diactoros\Response; // zend now abandoned check laminas
@@ -39,7 +40,10 @@
 
   $requestHandler = new Relay($middlewareQueue);
 
-  $requestHandler->handle(ServerRequestFactory::fromGlobals());
+  $respone = $requestHandler->handle(ServerRequestFactory::fromGlobals());
+
+  $emitter = new SapiEmitter();
+  return $emitter->emit($respone);
 
   // $message = $container->get(MainController::class);
   // $message->message();

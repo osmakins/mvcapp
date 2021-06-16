@@ -14,7 +14,8 @@
         "zendframework/zend-diactoros": "^2.2",
         "middlewares/fast-route": "^1.0", 
         "middlewares/request-handler": "^1.1",
-        "http-interop/http-factory-guzzle": "^1.0"
+        "http-interop/http-factory-guzzle": "^1.0",
+        "narrowspark/http-emitter": "^1.0"
     },
     "autoload": {
         "psr-4": {
